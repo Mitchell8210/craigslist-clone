@@ -1,0 +1,111 @@
+
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+.pageContainer{
+  width:80%;
+  margin:auto;
+}
+/* Main Page */
+
+.MainPageIndex{
+  display: flex;
+}
+.MainPageIndexContainer{
+  width:70%;
+}
+.mainCity{
+  font-size: 40px;
+  text-align: center;
+  background: rgb(242,242,242);
+  height:50px;
+  line-height: 50px;
+  border-bottom: 2px solid rgba(0,0,0,0.7);
+  width:95%;
+  margin:auto;
+}
+.MainCategoryContainer{
+  display: flex;
+  flex-wrap: wrap;
+  width:100%; 
+}
+.catgegoryContainer{
+  width:25%;
+  text-align: center;
+}
+.MainCategoryNames{
+  font-size: 30px;
+  background: rgb(242,242,242);
+  width:80%;
+  margin:auto;
+  margin-top:10%;
+}
+
+/* Aside Left*/
+.MainAsideContainer{
+  width:15%;
+  background: rgb(242,242,242);
+  border-left: 1px  solid #ccc;
+  border-right:1px solid #ccc;
+}
+.mitchellsList{
+  font-size: 30px;
+  text-align: center;
+  margin-top:20%;
+}
+.calender{
+width:80%;
+margin:auto;
+margin-bottom: 20%;
+margin-top:30%;
+background: rgb(242,242,242);
+padding: 5px;
+}
+.calenderDays{
+ display: flex;
+ 
+}
+.calenderDays div{
+  width:15%;
+}
+.calenderNumbers{
+display: flex;
+flex-wrap: wrap;
+
+
+}
+.calenderNumbers div{
+  width:15%;
+  padding:3px;
+
+}
+.MainAsideLinks{
+  width:80%;
+  margin:auto;
+  text-align: center;
+}
+.MainAsideLinks div{
+  margin-bottom: 5%;
+  color: blue;
+  text-decoration: underline;
+  font-size: 15px;
+}
