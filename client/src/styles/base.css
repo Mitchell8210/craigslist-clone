@@ -22,7 +22,7 @@ code {
     monospace;
 }
 .pageContainer{
-  width:80%;
+  width:90%;
   margin:auto;
 }
 /* Main Page */
@@ -115,6 +115,7 @@ flex-wrap: wrap;
 .calenderNumbers div{
   width:15%;
   padding:3px;
+  font-size: 15px;
 
 }
 .MainAsideLinks{
