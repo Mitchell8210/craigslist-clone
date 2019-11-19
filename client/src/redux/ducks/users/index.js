@@ -115,7 +115,8 @@ export function getSingleListings(id){
         catName: resp.data[0].category_name,
         title: resp.data[0].title,
         location: resp.data[0].location,
-        description: resp.data[0].description
+        description: resp.data[0].description,
+        url:resp.data[0].url
       }
       dispatch({
         type: GET_SINGLE_LISTINGS,

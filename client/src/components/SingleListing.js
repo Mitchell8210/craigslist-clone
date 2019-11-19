@@ -12,6 +12,7 @@ console.log(singleListing)
             <div className="singleTitle">{singleListing.title}</div>
             <div className="singleLocation">{singleListing.location}</div>
             <div className="singleDescription">{singleListing.description}</div>
+            <div><a target="_blank">fsfs{singleListing.url}</a></div>
             <Link to={`/MainPageIndex`}>Back to Main</Link>
         </div>
     )

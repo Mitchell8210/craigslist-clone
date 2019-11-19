@@ -16,12 +16,13 @@ router.post("/", (req, res, next)=>{
   const title = req.body.title
   const location = req.body.location
   const description = req.body.description
+
   
   const sql = `INSERT INTO 
-  listings (category_name, category_id, title, location, description) 
+  listings (category_name, category_id, title, location) 
   VALUES(?,?,?,?,?)` 
 
-  db.query(sql, [category_name, category_id, title, location, description ],(err,results, fields)=>{
+  db.query(sql, [category_name, category_id, title, location, description],(err,results, fields)=>{
     console.log(results)
     res.json(results)
   }) 
@@ -50,7 +51,7 @@ router.get('/listings/:id', (req, res, next)=>{
 router.get('/listings/single/:id', (req, res, next)=>{
   const id = req.params.id
   const sql=`
-  SELECT category_name, title, category_id, id, location, description
+  SELECT category_name, title, category_id, id, location, description, url
   FROM listings
   where id = ?
   `
