@@ -1,54 +1,43 @@
 import React, {useState} from "react"
-import { useCategories } from "../hooks"
+import { useListings } from "../hooks"
 import {Link} from 'react-router-dom'
+import Axios from "axios"
+import { dispatch } from "rxjs/internal/observable/range"
 
 
 
 function CreateListing(props) {
-  const { categories, NewPost } = useCategories()
+  const { listing } = useListings()
   const id = props.match.params.id
-  const name = props.match.params.name
-    const [title, setTitle] = useState('')
-    const [location, setLocation] = useState('')
-    const [description, setDescription] = useState('')
+  const slug = props.match.params.slug
+  const [title, setTitle] = useState('')
+  const [location, setLocation] = useState('')
+  const [description, setDescription] = useState('')
+  const category_name= slug
+  const category_id = id
 
-    // const makeAListing = () =>{
-    //     const [title, setTitle] = useState('')
-    // const [location, setLocation] = useState('')
-    // const [description, setDescription] = useState('')
-    // }
+function handleClick(e){
+   e.preventDefault()
+
+Axios.post('/users', {category_name, category_id, title, location, description}).then(resp=> {
+    console.log('posted')
+    listing(category_id)
+})
 
 
-
-const userListing = {
-    category_name: name,
-    category_id: id,
-    title: title,
-    location: location,
-    description: description
-}
-function handleClick(userListing){
-   
-    NewPost(userListing)
-    console.log(userListing)
+    // NewPost(category_name, category_id, title, location, description)
+    // console.log('jilesjf')
 }
   return (
-    <div>
-        <p>CREATE LISTINGS</p>
-        <form>
-            <div>id:{id}</div>
-            <div>name:{name}</div>
-            <input type="text" placeholder="Listing Title" onChange={e => setTitle(e.target.value)}></input>
-            <input type="text" placeholder="Location"onChange={e => setLocation(e.target.value)}></input>
-            <input type="text" placeholder="description" onChange={e=> setDescription(e.target.value)}></input>
+    <div className="createListingContainer">
+
+        <form onSubmit={handleClick}>
+                <input type="text" placeholder="Listing Title" onChange={e => setTitle(e.target.value)}></input>
+                <input type="text" placeholder="Location"onChange={e => setLocation(e.target.value)}></input>
+                <input type="text" placeholder="description" onChange={e=> setDescription(e.target.value)}></input>
+                <button className="createListingButton" type="submit">Create Listing</button>
         </form>
-        <div className="createListingButton" onClick={
-            handleClick(userListing)
-        }>Create Listing</div>
-        <div> <Link to={'/MainPageIndex'}>Back to the other page, bitch.</Link></div>
-        <div>{title}</div>
-        <div>{location}</div>
-        <div>{description}</div>
+            <div className="backToMain"> <Link to={'/MainPageIndex'}>Back to the main page</Link></div>
     </div>
   )
 }

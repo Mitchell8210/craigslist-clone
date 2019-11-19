@@ -29,6 +29,9 @@ code {
 
 .MainPageIndex{
   display: flex;
+  margin-top:5%;
+  margin-bottom: 5%;
+  padding-bottom: 5%;
 }
 .MainPageIndexContainer{
   width:70%;
@@ -48,9 +51,20 @@ code {
   flex-wrap: wrap;
   width:100%; 
 }
+.subCategoryNames{
+  border-bottom: 1px solid #ccc;
+  width:80%;
+  margin:auto;
+}
+.subCategoryNames:hover{
+  background: #ddd;
+  cursor: pointer;
+}
 .catgegoryContainer{
   width:25%;
   text-align: center;
+  height:400px;
+  overflow: scroll;
 }
 .MainCategoryNames{
   font-size: 30px;
@@ -58,6 +72,11 @@ code {
   width:80%;
   margin:auto;
   margin-top:10%;
+  Color:blue;
+}
+.MainCategoryNames:hover{
+  background: #ddd;
+  cursor: pointer;
 }
 
 /* Aside Left*/
@@ -108,4 +127,157 @@ flex-wrap: wrap;
   color: blue;
   text-decoration: underline;
   font-size: 15px;
+}
+.MainAsideLinks div:hover{
+  background: #aaa;
+  cursor: pointer;
+}
+
+/*right adise */
+.nearbyCities{
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 20%;
+  margin-top: 20%;
+}
+.rightSideCities{
+  width:80%;
+  margin:auto;
+  text-align: center;
+}
+.rightSideCities div{
+  margin-bottom: 5%;
+  color: blue;
+  text-decoration: underline;
+  font-size: 15px;
+}
+.rightSideCities div:hover{
+  background: #aaa;
+  cursor: pointer;
+}
+
+/* view listings page */
+
+.viewListingContainer{
+margin-top:20px;
+}
+.listingItemsContainer{
+  margin-top:100px;
+}
+.listingItems{
+width: 60%;
+margin:auto;
+margin-top:20px;
+margin-bottom: 20px;
+
+}
+.listingItems a{
+  text-decoration: none;
+  color:black;
+  cursor: pointer;
+
+}
+
+.addAListingLink{
+  width: 60%;
+  margin:auto;
+  margin-top:20px;
+  
+}
+.addAListingLink a{
+  color:black;
+  cursor: pointer;
+}
+.listingCatNames{
+  font-size: 30px;
+  margin-bottom: 10px;
+
+}
+.listingTitles{
+  font-size: 20px;
+  border-bottom: 2px solid #ccc;
+}
+.notAvailable{
+  font-size: 30px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 5%;
+}
+.notAvailableContainer{
+  width:60%;
+  margin:auto;
+  margin-top:100px;
+
+}
+.notAvailableContainer a{
+  color:black;
+  cursor: pointer;
+}
+.notAvailableBack{
+  margin-top:5%;
+  
+}
+.notAvailableBack a{
+  color: black;
+  cursor: pointer;
+}
+/* create listing page*/
+
+.createListingContainer{
+  width: 60%;
+  margin:auto;
+}
+form{
+  border-bottom: 1px solid #999;
+  margin-top:20%;
+}
+input {
+  height: 40px;
+  width:200px;
+  margin:10px;
+  border: 2px solid #aaa;
+  background: #ccc;
+  color:black;
+  font-size: 20px;
+  outline: none;
+}
+button{
+   margin:10px;
+   height: 30px;
+   width:100px;
+   color:black;
+   font-size: 12px;
+   border: 1px solid #aaa;
+   background: #ccc;
+   cursor: pointer;
+}
+.backToMain{
+  margin:10px;
+}
+.backToMain a{
+  color:black;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* single listing view */
+
+.singleListingContainer{
+  width: 60%;
+  margin:auto;
+  margin-top:10%
+}
+.singleTitle{
+  font-size: 30px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 5%;
+}
+.singleLocation{
+  font-size: 20px;
+  margin-bottom: 5%;
+  border-bottom: 1px solid #ccc;
+}
+.singleDescription{
+  font-size: 20px;
+  margin-bottom: 5%;
+  border-bottom: 1px solid #ccc;
 }

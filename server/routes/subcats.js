@@ -4,7 +4,7 @@ const db = require('../db')
 
 // listening for calls to database
 router.get("/", (req, res, next) => {
-  const sql = `SELECT name, id, parent_id
+  const sql = `SELECT name,slug, id, parent_id
   FROM categories c
 WHERE parent_id IS NOT NULL;`
   db.query(sql, (err, results, fields)=>{

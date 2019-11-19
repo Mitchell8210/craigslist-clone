@@ -3,8 +3,8 @@ const db = require('../db')
 
 
 // listening for calls to database
-router.get("/something", (req, res, next) => {
-  const sql = `SELECT name from categories`
+router.get("/categories", (req, res, next) => {
+  const sql = `SELECT name, slug, id from categories`
   db.query(sql, (err, results, fields)=>{
     res.json(results)
   })
@@ -19,9 +19,9 @@ router.post("/", (req, res, next)=>{
   
   const sql = `INSERT INTO 
   listings (category_name, category_id, title, location, description) 
-  VALUES('${category_name}', '${category_id}', '${title}', '${location}', '${description}')` 
+  VALUES(?,?,?,?,?)` 
 
-  db.query(sql, (err,results, fields)=>{
+  db.query(sql, [category_name, category_id, title, location, description ],(err,results, fields)=>{
     console.log(results)
     res.json(results)
   }) 
@@ -35,5 +35,29 @@ router.post("/test", (req,res,next)=>{
     res.json(results)
   })
 } )
+router.get('/listings/:id', (req, res, next)=>{
+  const id = req.params.id
+  const sql=`
+  SELECT category_name, title, category_id, id
+  FROM listings
+  where category_id = ?
+  `
+  db.query(sql, [id], (err, results, fields)=>{
+    console.log(results)
+    res.json(results)
+  })
+})
+router.get('/listings/single/:id', (req, res, next)=>{
+  const id = req.params.id
+  const sql=`
+  SELECT category_name, title, category_id, id, location, description
+  FROM listings
+  where id = ?
+  `
+  db.query(sql, [id], (err, results, fields)=>{
+    console.log(results)
+    res.json(results)
+  })
+})
 module.exports = router
 

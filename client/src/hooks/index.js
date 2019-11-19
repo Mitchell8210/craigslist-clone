@@ -1,1 +1,1 @@
-export { useCategories } from "../redux/ducks/users"
+export { useCategories, useListings, useSingleListings } from "../redux/ducks/users"

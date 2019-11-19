@@ -6,12 +6,17 @@ import axios from "axios"
 const GET_CATEGORIES = "users/GET_USERS"
 const NEW_LISTING = "users/NEW_LISTING"
 const GET_SUBCATEGORIES= "users/GET_SUBCATEGORIES"
-const TEST_POST ="TEST_POST"
+const GET_LISTINGS ="GET_LISTINGS"
+const DISPLAY_DATA="DISPLAY_DATA"
+const GET_SINGLE_LISTINGS= 'GET_SINGLE_LISTINGS'
 // initial state
 const initialState = {
   categories: [],
   newListing: [],
-  subCategories: []
+  singleListing: [],
+  subCategories: [],
+  subListings:[],
+  allData:[]
 }
 
 // reducer
@@ -23,7 +28,12 @@ export default (state = initialState, action) => {
       return {...state, newListing: action.payload}
     case GET_SUBCATEGORIES: 
       return {...state, subCategories: action.payload}
-    
+    case DISPLAY_DATA:
+      return {...state, allData: action.payload }
+    case GET_LISTINGS:
+      return {...state, subListings: action.payload}
+    case GET_SINGLE_LISTINGS:
+      return {...state, singleListing: action.payload}
     default:
       return state
   }
@@ -34,7 +44,7 @@ export default (state = initialState, action) => {
 //get calls to database
 const getCategories = () => {
   return dispatch => {
-    axios.get("/users/something").then(resp => {
+    axios.get("/users/categories").then(resp => {
       const cats ={
         name1: resp.data[0].name,
         name2: resp.data[1].name,
@@ -48,6 +58,10 @@ const getCategories = () => {
       dispatch({
         type: GET_CATEGORIES,
         payload: cats
+      })
+      dispatch({
+        type: DISPLAY_DATA,
+        payload: resp.data
       })
     })
   }
@@ -66,16 +80,17 @@ const getSubCategories = () => {
       subSeven: newArrSeven(resp.data)
       }
       dispatch({
-        type: GET_SUBCATEGORIES
+        type: GET_SUBCATEGORIES,
+        payload: newarrays
       })
 
     })
   }
 }
 //post calls to database
-function createNewPost(newListing){
+function createNewPost(category_name, category_id, title, location,description){
   return dispatch => {
-    axios.post("/", {newListing}).then(resp => {
+    axios.post("/users",{category_name,category_id,title,location,description}).then(resp => {
       dispatch({
         type: NEW_LISTING,
         payload: resp.data
@@ -83,21 +98,65 @@ function createNewPost(newListing){
     })
   }
 }
-function testPost(){
+export function getListings(id){
   return dispatch => {
-    axios.post("/test").then(resp => {
+    axios.get("/users/listings/"+id).then(resp => {
       dispatch({
-        type: TEST_POST
+        type: GET_LISTINGS,
+        payload: resp.data
       })
     })
   }
 }
+export function getSingleListings(id){
+  return dispatch => {
+    axios.get("/users/listings/single/"+id).then(resp => {
+      const item = {
+        catName: resp.data[0].category_name,
+        title: resp.data[0].title,
+        location: resp.data[0].location,
+        description: resp.data[0].description
+      }
+      dispatch({
+        type: GET_SINGLE_LISTINGS,
+        payload: item
+      })
+    })
+  }
+}
+
+// function newArr(arr){
+//   for( let i = 0; i < arr.length; i++){
+//     if(arr[i].parent_id === 1){
+//       subOne.push(arr[i])
+//     }
+//     else if(arr[i].parent_id ===2){
+//       subTwo.push(arr[i])
+//     }
+//     else if(arr[i].parent_id ===3){
+//       subThree.push(arr[i])
+//     }
+//     else if(arr[i].parent_id ===4){
+//       subFour.push(arr[i])
+//     }
+//     else if(arr[i].parent_id === 5){
+//       subFive.push(arr[i])
+//     }
+//     else if(arr[i].parent_id=== 122){
+//       subSix.push(arr[i])
+//     }
+//     else if(arr[i].parent_id === 123){
+//       subSeven.push(arr[i])
+//     }
+//   }
+// }
+
+
 var subOne = []
 function newArr(oldArr){
   for (let i =0; i < 15; i++){
     subOne.push(oldArr[i])
   }
-  console.log(subOne,'subbers')
 }
 //sorting the subcategories
 var subTwo = []
@@ -137,17 +196,41 @@ function newArrSeven(oldArr){
   }
 }
 // custom hooks
- export function useCategories() {
-  const categories = useSelector(appState => appState.userState.categories)
-  const newListing = useSelector(appState => appState.userState.newListing)
+export function useSingleListings(id){
   const dispatch = useDispatch()
+  const singleListing = useSelector(appState=> appState.userState.singleListing)
+  useEffect(()=>{
+    dispatch(getSingleListings(id))
+  },[id])
+  return {singleListing}
+}
 
-  const NewPost = (newListing)=>dispatch(createNewPost(newListing))
+
+export function useListings(id){
+  const dispatch = useDispatch()
+  const subListings = useSelector(appState=>appState.userState.subListings)
+  const listing = (id)=> dispatch(getListings(id))
+  
   useEffect(() => {
-    dispatch(getCategories())
-    dispatch(getSubCategories())
-    dispatch(testPost())
-  }, [])
+    dispatch(getListings(id))
+  }, [id])
+  
+  return { subListings, listing}
 
-  return { newListing, categories, NewPost,subOne, subTwo, subThree,subFour,subFive,subSix,subSeven }
+
+}
+
+ export function useCategories() {
+    const categories = useSelector(appState => appState.userState.categories)
+    const newListing = useSelector(appState => appState.userState.newListing)
+    const subCategories = useSelector(appState => appState.userState.subCategories)
+    const dispatch = useDispatch()
+
+    const NewPost = (category_name, category_id,title, location, description)=>dispatch(createNewPost(category_name, category_id,title, location, description))
+    useEffect(() => {
+      dispatch(getCategories())
+      dispatch(getSubCategories())
+    }, [])
+
+    return { newListing, categories, NewPost,subOne, subTwo, subThree,subFour,subFive,subSix,subSeven, subCategories }
 }
